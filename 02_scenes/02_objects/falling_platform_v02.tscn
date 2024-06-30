@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0dxxsiwpbiuw"]
+
+[ext_resource type="Texture2D" uid="uid://41ksm4xg16lh" path="res://01_assets/01_sprites/spritesheet_fallingPlaform.png" id="1_2oshd"]
+[ext_resource type="Script" path="res://02_scenes/02_objects/falling_platform_v02.gd" id="1_tjgai"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3xm1"]
+size = Vector2(253, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_laoy1"]
+size = Vector2(252, 11)
+
+[sub_resource type="Animation" id="Animation_oyqa2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("image:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kptpm"]
+resource_name = "shake"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fall"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("image:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(10, 0), Vector2(-10, 0), Vector2(10, 0), Vector2(-10, 0), Vector2(10, 0), Vector2(-10, 0), Vector2(10, 0), Vector2(0, 0), Vector2(10, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v03i2"]
+_data = {
+"RESET": SubResource("Animation_oyqa2"),
+"shake": SubResource("Animation_kptpm")
+}
+
+[node name="fallingPlatform" type="Node2D"]
+
+[node name="fallingPlatform_v02" type="CharacterBody2D" parent="."]
+position = Vector2(20, 0)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_tjgai")
+
+[node name="image" type="Sprite2D" parent="fallingPlatform_v02"]
+texture = ExtResource("1_2oshd")
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="fallingPlatform_v02"]
+position = Vector2(0.5, -9)
+shape = SubResource("RectangleShape2D_r3xm1")
+one_way_collision = true
+
+[node name="playerEntered" type="Area2D" parent="fallingPlatform_v02"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="fallingPlatform_v02/playerEntered"]
+position = Vector2(0, -31.5)
+shape = SubResource("RectangleShape2D_laoy1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="fallingPlatform_v02"]
+libraries = {
+"": SubResource("AnimationLibrary_v03i2")
+}
+
+[node name="Timer" type="Timer" parent="fallingPlatform_v02"]
+
+[connection signal="body_entered" from="fallingPlatform_v02/playerEntered" to="fallingPlatform_v02" method="_on_player_entered_body_entered"]
+[connection signal="body_exited" from="fallingPlatform_v02/playerEntered" to="fallingPlatform_v02" method="_on_player_entered_body_exited"]
+[connection signal="timeout" from="fallingPlatform_v02/Timer" to="fallingPlatform_v02" method="_on_timer_timeout"]

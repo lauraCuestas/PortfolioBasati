@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfulggi85qbnc"]
+
+[ext_resource type="Texture2D" uid="uid://l05rpi0gvfip" path="res://01_assets/01_sprites/BasatiSpriteSheet.png" id="1_8htec"]
+[ext_resource type="Texture2D" uid="uid://b1e2s0tc63owr" path="res://01_assets/01_sprites/bocadilloComic.png" id="1_436kr"]
+
+[sub_resource type="Animation" id="Animation_buutj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_00vsq"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mf8rf"]
+_data = {
+"RESET": SubResource("Animation_buutj"),
+"idle": SubResource("Animation_00vsq")
+}
+
+[sub_resource type="Theme" id="Theme_io7mw"]
+default_font_size = 25
+
+[node name="BasatiAnimation" type="Node2D"]
+
+[node name="bocadillo" type="Sprite2D" parent="."]
+position = Vector2(370.594, -59.3576)
+scale = Vector2(0.354594, 0.164363)
+texture = ExtResource("1_436kr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8htec")
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_mf8rf")
+}
+
+[node name="Label" type="Label" parent="."]
+offset_left = 42.188
+offset_top = -140.0
+offset_right = 688.188
+offset_bottom = 19.0003
+theme = SubResource("Theme_io7mw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "¿Ves ese orbe? Haz click en su dirección cuando estés cerca y saldrás disparado. Ten en cuenta que cuanto más cerca de él menos inercia tienes!"
+horizontal_alignment = 1
+autowrap_mode = 2

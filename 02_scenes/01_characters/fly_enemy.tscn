@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://dyonm0y56q8f0"]
+
+[ext_resource type="Script" path="res://02_scenes/01_characters/fly_direction.gd" id="1_7sbc1"]
+[ext_resource type="Texture2D" uid="uid://c61wp6v7j7af8" path="res://01_assets/01_sprites/sprite_volador.png" id="2_jerpk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vdued"]
+radius = 8.0
+
+[sub_resource type="Animation" id="Animation_vsugo"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_6ca4o"]
+resource_name = "fly"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2),
+"points": PackedFloat32Array(0, 0, 0, 0.0333333, 0, 1, -0.0333333, 0, 0.0333333, 0, 2, -0.0333333, 0, 0.0333333, 0, 3, -0.0333333, 0, 0.0333333, 0, 4, -0.0333333, 0, 0.0333333, 0, 0, -0.0333333, 0, 0.0333333, 0, 1, -0.0333333, 0, 0.0333333, 0, 2, -0.0333333, 0, 0.0333333, 0, 3, -0.0333333, 0, 0.0333333, 0, 4, -0.0333333, 0, 0.0333333, 0, 0, -0.0333333, 0, 0.0333333, 0, 1, -0.0333333, 0, 0.0333333, 0, 2, -0.0333333, 0, 0.0333333, 0, 3, -0.0333333, 0, 0.0333333, 0, 4, -0.0333333, 0, 0.0333333, 0, 0, -0.0333333, 0, 0.0333333, 0, 1, -0.0333333, 0, 0.0333333, 0, 2, -0.0333333, 0, 0.0333333, 0, 3, -0.0333333, 0, 0.0333333, 0, 4, -0.0333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.333333, 0, 1, -0.25, 0, 0.25, 0, 0, -0.333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 1, 1.9)
+}
+
+[sub_resource type="Animation" id="Animation_reayt"]
+resource_name = "move"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1, 2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dcsia"]
+_data = {
+"RESET": SubResource("Animation_vsugo"),
+"fly": SubResource("Animation_6ca4o"),
+"move": SubResource("Animation_reayt")
+}
+
+[node name="fly_direction" type="PathFollow2D"]
+position = Vector2(265, -169)
+rotation = -6.28319
+rotates = false
+script = ExtResource("1_7sbc1")
+
+[node name="enemyBody" type="Area2D" parent="." groups=["enemies"]]
+collision_layer = 8
+collision_mask = 27
+
+[node name="image" type="Sprite2D" parent="enemyBody"]
+texture = ExtResource("2_jerpk")
+hframes = 5
+frame = 1
+
+[node name="collision_zone" type="CollisionShape2D" parent="enemyBody"]
+position = Vector2(-5, 6)
+scale = Vector2(2.47059, 2.63444)
+shape = SubResource("CircleShape2D_vdued")
+
+[node name="animation" type="AnimationPlayer" parent="enemyBody"]
+libraries = {
+"": SubResource("AnimationLibrary_dcsia")
+}
+
+[connection signal="body_entered" from="enemyBody" to="." method="_on_enemy_body_body_entered"]

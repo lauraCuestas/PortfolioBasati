@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://lmoeq4qjj84s"]
+
+[ext_resource type="Script" path="res://02_scenes/04_screens/hud.gd" id="1_lk7wn"]
+[ext_resource type="Theme" uid="uid://dcpkhgdbsuhi7" path="res://03_themes/game_theme.tres" id="2_rb73v"]
+[ext_resource type="Texture2D" uid="uid://t53fkqvrckfy" path="res://01_assets/01_sprites/BST_ch_gatoColeccionable01_v01.png" id="3_lnbaq"]
+[ext_resource type="Texture2D" uid="uid://dcnlw8i8ps38t" path="res://01_assets/01_sprites/alma01.png" id="4_65alg"]
+[ext_resource type="AudioStream" uid="uid://dn4v4s40kvvhp" path="res://01_assets/03_sound/01_sfx/CatObtained.wav" id="5_lyb2s"]
+[ext_resource type="AudioStream" uid="uid://cxdtqf0yex4rg" path="res://01_assets/03_sound/01_sfx/PickUp.wav" id="6_m07o4"]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 0
+script = ExtResource("1_lk7wn")
+
+[node name="interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin" type="MarginContainer" parent="interface"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 35.0
+offset_top = 18.0
+offset_right = -277.0
+offset_bottom = 243.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="interface/margin"]
+layout_mode = 2
+
+[node name="scoreCats" type="Label" parent="interface/margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_rb73v")
+theme_override_colors/font_color = Color(0.764706, 0.952941, 0.768627, 1)
+theme_override_colors/font_shadow_color = Color(0.341176, 0.6, 0.34902, 1)
+theme_override_constants/shadow_offset_x = 5
+text = "0
+"
+
+[node name="image_cats" type="Sprite2D" parent="interface/margin/HBoxContainer/scoreCats"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(173, 71)
+texture = ExtResource("3_lnbaq")
+
+[node name="scoreCoins" type="Label" parent="interface/margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("2_rb73v")
+theme_override_colors/font_color = Color(0.764706, 0.952941, 0.768627, 1)
+theme_override_colors/font_shadow_color = Color(0.341176, 0.6, 0.34902, 1)
+theme_override_constants/shadow_offset_x = 5
+text = "0"
+
+[node name="image_coins" type="Sprite2D" parent="interface/margin/HBoxContainer/scoreCoins"]
+position = Vector2(228, 86)
+scale = Vector2(0.995, 1)
+texture = ExtResource("4_65alg")
+
+[node name="PickupGato_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_lyb2s")
+
+[node name="PickupAlma_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_m07o4")

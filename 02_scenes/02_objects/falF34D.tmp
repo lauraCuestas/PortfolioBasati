@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://8kys33fd16pf"]
+
+[ext_resource type="Script" path="res://02_scenes/02_objects/fallingPlatform.gd" id="1_i3h7n"]
+[ext_resource type="Texture2D" uid="uid://es5h3pe2iws5" path="res://01_assets/01_sprites/platafroma.png" id="2_3r4qo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uq7qm"]
+size = Vector2(72, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kekm8"]
+size = Vector2(84, 20)
+
+[sub_resource type="Animation" id="Animation_dyn3e"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("image:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("image:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_17n7u"]
+resource_name = "falling"
+length = 0.8
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("image:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -6, -0.25, 0, 0.25, 0, 6, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, -6, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.5, 0.6)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("image:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.5, 0.6)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dticg"]
+_data = {
+"RESET": SubResource("Animation_dyn3e"),
+"falling": SubResource("Animation_17n7u")
+}
+
+[node name="fallingPlatform" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_i3h7n")
+
+[node name="image" type="Sprite2D" parent="."]
+position = Vector2(-3, 0)
+scale = Vector2(0.48, 0.2)
+texture = ExtResource("2_3r4qo")
+
+[node name="collision_zone" type="CollisionShape2D" parent="."]
+position = Vector2(-7, 2)
+scale = Vector2(2.50742, 1.17433)
+shape = SubResource("RectangleShape2D_uq7qm")
+one_way_collision = true
+
+[node name="player_enter" type="Area2D" parent="."]
+
+[node name="collision_fall" type="CollisionShape2D" parent="player_enter"]
+position = Vector2(-6, -14)
+scale = Vector2(2.16412, 1)
+shape = SubResource("RectangleShape2D_kekm8")
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dticg")
+}
+
+[connection signal="body_entered" from="player_enter" to="." method="_on_player_enter_body_entered"]

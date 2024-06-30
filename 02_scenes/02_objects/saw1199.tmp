@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://4lr6pvithakd"]
+
+[ext_resource type="Script" path="res://02_scenes/02_objects/saw.gd" id="1_3tiiv"]
+[ext_resource type="Texture2D" uid="uid://df8icfxvr3r0r" path="res://01_assets/01_sprites/sierra.png" id="1_g05ww"]
+
+[sub_resource type="Animation" id="Animation_8eypu"]
+resource_name = "rotation"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 1),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, 6.28319, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="Animation" id="Animation_58du0"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(6.28319, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tae1t"]
+_data = {
+"RESET": SubResource("Animation_58du0"),
+"rotation": SubResource("Animation_8eypu")
+}
+
+[node name="saw" type="Node2D"]
+rotation = 6.28319
+script = ExtResource("1_3tiiv")
+
+[node name="image" type="Sprite2D" parent="."]
+texture = ExtResource("1_g05ww")
+hframes = 5
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="colision_zone" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(37, -277, 137, -236, 186, -195, 236, -118, 255, -74, 251, -29, 241, 30, 200, 125, 49, 243, -76, 240, -157, 193, -213, 116, -258, -22, -241, -86, -199, -168, -141, -229, -61, -266)
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tae1t")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

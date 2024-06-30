@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2i7rc0dhm5m"]
+
+[ext_resource type="Script" path="res://02_scenes/02_objects/obstaculos.gd" id="1_bxu0t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqswt"]
+size = Vector2(27, 27)
+
+[node name="obstaculos" type="Area2D" groups=["obstaculos"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_bxu0t")
+
+[node name="collision_zone" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tqswt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

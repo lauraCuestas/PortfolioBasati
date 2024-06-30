@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://c78kekwbpv451"]
+
+[ext_resource type="Script" path="res://02_scenes/04_screens/pause_menu.gd" id="1_huebk"]
+[ext_resource type="Shader" path="res://02_scenes/04_screens/pause_menu.gdshader" id="2_ev8yp"]
+[ext_resource type="Texture2D" uid="uid://c42dqo7h1ncvu" path="res://01_assets/01_sprites/BST_uiux_PauseMenu_Basati_v01.png" id="3_k8cn3"]
+[ext_resource type="Theme" uid="uid://dcpkhgdbsuhi7" path="res://03_themes/game_theme.tres" id="4_a8gwo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kfm5n"]
+shader = ExtResource("2_ev8yp")
+shader_parameter/amount = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oie0n"]
+bg_color = Color(1, 1, 1, 0)
+
+[node name="pause_menu" type="CanvasLayer"]
+process_mode = 2
+script = ExtResource("1_huebk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_kfm5n")
+offset_left = -1206.0
+offset_top = -372.0
+offset_right = -1145.0
+offset_bottom = -342.0
+scale = Vector2(68.025, 68.025)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_k8cn3")
+centered = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 664.425
+offset_top = 323.855
+offset_right = 1295.43
+offset_bottom = 851.855
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_a8gwo")
+theme_override_colors/font_color = Color(0.764706, 0.952941, 0.768627, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.6, 0.34902, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 211
+theme_override_styles/focus = SubResource("StyleBoxFlat_oie0n")
+text = "Continuar"
+flat = true
+
+[node name="quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_a8gwo")
+theme_override_colors/font_color = Color(0.764706, 0.952941, 0.768627, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.6, 0.34902, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 206
+theme_override_styles/focus = SubResource("StyleBoxFlat_oie0n")
+text = "Salir"
+flat = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]

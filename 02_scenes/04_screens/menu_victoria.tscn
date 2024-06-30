@@ -1,0 +1,130 @@
+[gd_scene load_steps=8 format=3 uid="uid://dl8v07ep72wlk"]
+
+[ext_resource type="Script" path="res://02_scenes/04_screens/menu_victoria.gd" id="1_qi8nn"]
+[ext_resource type="Theme" uid="uid://dcpkhgdbsuhi7" path="res://03_themes/game_theme.tres" id="2_ptbrf"]
+[ext_resource type="Texture2D" uid="uid://mu4xuigf16p0" path="res://01_assets/01_sprites/3CatsFinal.png" id="2_s8x2i"]
+[ext_resource type="Texture2D" uid="uid://t53fkqvrckfy" path="res://01_assets/01_sprites/BST_ch_gatoColeccionable01_v01.png" id="5_3n1da"]
+[ext_resource type="Texture2D" uid="uid://dcnlw8i8ps38t" path="res://01_assets/01_sprites/alma01.png" id="5_wl1cn"]
+[ext_resource type="AudioStream" uid="uid://c1j4ncfbv03lg" path="res://01_assets/03_sound/02_music/victory.wav" id="6_vx04h"]
+[ext_resource type="VideoStream" path="res://01_assets/04_video/BST_cinematica_ending.ogv" id="7_kj778"]
+
+[node name="menu_victoria" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_qi8nn")
+
+[node name="image" type="Sprite2D" parent="."]
+texture = ExtResource("2_s8x2i")
+centered = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 127.0
+offset_top = 41.0
+offset_right = 542.0
+offset_bottom = 247.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="scoreCats" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_ptbrf")
+theme_override_colors/font_color = Color(0.764706, 0.952941, 0.768627, 1)
+theme_override_colors/font_shadow_color = Color(0.341176, 0.6, 0.34902, 1)
+theme_override_constants/shadow_offset_x = 5
+text = "0
+"
+
+[node name="scoreAlmas" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("2_ptbrf")
+theme_override_colors/font_color = Color(0.764706, 0.952941, 0.768627, 1)
+theme_override_colors/font_shadow_color = Color(0.341176, 0.6, 0.34902, 1)
+theme_override_constants/shadow_offset_x = 5
+text = "0"
+
+[node name="image_coins" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(638, 90)
+scale = Vector2(1.383, 1.383)
+texture = ExtResource("5_wl1cn")
+
+[node name="image_cats" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(170, 83)
+scale = Vector2(1.383, 1.383)
+texture = ExtResource("5_3n1da")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 125.0
+offset_top = 323.0
+offset_right = 688.0
+offset_bottom = 747.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="retryButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_ptbrf")
+theme_override_colors/font_color = Color(0.764706, 0.952941, 0.768627, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.6, 0.34902, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 166
+text = "RETRY"
+flat = true
+
+[node name="exitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = ExtResource("2_ptbrf")
+theme_override_colors/font_color = Color(0.764706, 0.952941, 0.768627, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.6, 0.34902, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 166
+text = "EXIT"
+flat = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_vx04h")
+autoplay = true
+
+[node name="scoreCats" type="Label" parent="."]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 736.0
+offset_right = 623.0
+offset_bottom = 984.0
+size_flags_horizontal = 0
+theme = ExtResource("2_ptbrf")
+theme_override_colors/font_color = Color(0.764706, 0.952941, 0.768627, 1)
+theme_override_colors/font_shadow_color = Color(0.341176, 0.6, 0.34902, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_font_sizes/font_size = 201
+text = "Muertes: 
+"
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+process_mode = 2
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stream = ExtResource("7_kj778")
+autoplay = true
+
+[connection signal="pressed" from="VBoxContainer/retryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/exitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]

@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://4lr6pvithakd"]
+
+[ext_resource type="Script" path="res://02_scenes/02_objects/saw.gd" id="1_3tiiv"]
+[ext_resource type="Texture2D" uid="uid://caq0jb1av5ot3" path="res://01_assets/01_sprites/TilesetSaw.png" id="2_gygpv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xo5xp"]
+radius = 28.5811
+
+[sub_resource type="Animation" id="Animation_58du0"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("image:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_8eypu"]
+resource_name = "rotation"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1, 2)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("image:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [-6.28319, 0.0, 6.28319, 12.5664, 18.8496]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tae1t"]
+_data = {
+"RESET": SubResource("Animation_58du0"),
+"rotation": SubResource("Animation_8eypu")
+}
+
+[node name="saw" type="PathFollow2D"]
+position = Vector2(-1, 1)
+rotation = -6.28319
+rotates = false
+script = ExtResource("1_3tiiv")
+
+[node name="image" type="Sprite2D" parent="."]
+texture = ExtResource("2_gygpv")
+
+[node name="enemyBody" type="Area2D" parent="."]
+scale = Vector2(2.395, 2.395)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemyBody"]
+scale = Vector2(0.69, 0.69)
+shape = SubResource("CircleShape2D_xo5xp")
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tae1t")
+}
+
+[connection signal="body_entered" from="enemyBody" to="." method="_on_area_2d_body_entered"]

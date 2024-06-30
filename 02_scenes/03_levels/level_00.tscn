@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://ccvi6mjqgung8"]
+
+[ext_resource type="PackedScene" uid="uid://dxght0tkoo58e" path="res://02_scenes/03_levels/levelTemplate.tscn" id="1_ibvid"]
+[ext_resource type="Texture2D" uid="uid://cc16bt43s416m" path="res://01_assets/01_sprites/BST_st_sky_v01.png" id="2_f5o7h"]
+[ext_resource type="Texture2D" uid="uid://dhhy352yqo0ax" path="res://01_assets/01_sprites/BST_st_mountain_v01.png" id="3_fl2hs"]
+[ext_resource type="Texture2D" uid="uid://cr6r8a0hakw4v" path="res://01_assets/01_sprites/BST_st_castle_v01.png" id="4_80v8f"]
+[ext_resource type="PackedScene" uid="uid://cqlbgwv47t5m1" path="res://02_scenes/02_objects/next_level_door.tscn" id="5_vh5ck"]
+[ext_resource type="PackedScene" uid="uid://dyuly4sqtvwq2" path="res://02_scenes/02_objects/checkpoint.tscn" id="6_06q6a"]
+[ext_resource type="PackedScene" uid="uid://dqctclahxrcm0" path="res://02_scenes/02_objects/orbes.tscn" id="6_hvruj"]
+[ext_resource type="PackedScene" uid="uid://dsybe2au6o3pk" path="res://02_scenes/04_screens/tutorial_screens.tscn" id="6_sodab"]
+[ext_resource type="AudioStream" uid="uid://c3wne2l2vswsc" path="res://01_assets/03_sound/02_music/Level01.wav" id="8_pofy4"]
+[ext_resource type="PackedScene" uid="uid://bfulggi85qbnc" path="res://02_scenes/01_characters/basati_animation.tscn" id="9_ws5st"]
+
+[node name="levelTemplate" instance=ExtResource("1_ibvid")]
+
+[node name="image_sky" type="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_f5o7h")
+centered = false
+
+[node name="image_moutain" type="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_fl2hs")
+centered = false
+
+[node name="image_castle" type="Sprite2D" parent="." index="2"]
+texture = ExtResource("4_80v8f")
+centered = false
+
+[node name="Camera2D" parent="player" index="2"]
+limit_left = 0
+limit_top = 0
+limit_right = 2880
+limit_bottom = 1080
+
+[node name="checkpoint" parent="." index="4" instance=ExtResource("6_06q6a")]
+position = Vector2(1088, 586)
+
+[node name="world" parent="." index="5"]
+layer_0/tile_data = PackedInt32Array(786433, 131076, 0, 786434, 131076, 0, 786435, 131076, 0, 786436, 131076, 0, 983049, 4, 0, 917513, 4, 0, 851977, 4, 0, 786441, 131076, 0, 983048, 4, 0, 917512, 4, 0, 851976, 4, 0, 786440, 131076, 0, 983047, 4, 0, 917511, 4, 0, 851975, 4, 0, 786439, 131076, 0, 983046, 4, 0, 917510, 4, 0, 851974, 4, 0, 786438, 131076, 0, 983045, 4, 0, 917509, 4, 0, 851973, 4, 0, 786437, 131076, 0, 983044, 4, 0, 917508, 4, 0, 851972, 4, 0, 983043, 4, 0, 917507, 4, 0, 851971, 4, 0, 983042, 4, 0, 917506, 4, 0, 851970, 4, 0, 983041, 4, 0, 917505, 4, 0, 851969, 4, 0, 1048586, 131076, 1, 983050, 4, 0, 917514, 4, 0, 851978, 4, 0, 786442, 131076, 0, 1048585, 131076, 1, 1048584, 131076, 1, 1048583, 131076, 1, 1048582, 131076, 1, 1048581, 131076, 1, 1048580, 131076, 1, 1048579, 131076, 1, 1048578, 131076, 1, 1048577, 131076, 1, 1048576, 65540, 1, 983040, 4, 0, 917504, 4, 0, 851968, 4, 0, 786432, 131076, 0, 1048591, 131076, 1, 983055, 4, 0, 917519, 4, 0, 851983, 4, 0, 1048590, 131076, 1, 983054, 4, 0, 917518, 4, 0, 851982, 4, 0, 1048596, 131076, 1, 983060, 4, 0, 917524, 4, 0, 851988, 4, 0, 1048595, 131076, 1, 983059, 4, 0, 917523, 4, 0, 851987, 4, 0, 786443, 4, 0, 786444, 4, 0, 786445, 4, 0, 851979, 4, 0, 917515, 4, 0, 983051, 4, 0, 1048587, 131076, 1, 1048588, 131076, 1, 983052, 4, 0, 917516, 4, 0, 851980, 4, 0, 851981, 4, 0, 917517, 4, 0, 983053, 4, 0, 1048589, 131076, 1, 786446, 4, 0, 786447, 4, 0, 786448, 4, 0, 851984, 4, 0, 917520, 4, 0, 983056, 4, 0, 1048592, 131076, 1, 1048593, 131076, 1, 1048594, 131076, 1, 983058, 4, 0, 917522, 4, 0, 851986, 4, 0, 786450, 4, 0, 786449, 4, 0, 851985, 4, 0, 917521, 4, 0, 983057, 4, 0, 786451, 4, 0, 786452, 4, 0, 720913, 131076, 0, 720914, 131076, 0, 720915, 131076, 0, 720916, 131076, 0, 720909, 131076, 0, 720910, 131076, 0, 720911, 131076, 0, 720912, 131076, 0, 720907, 65540, 0, 720908, 131076, 0, 1048599, 196612, 1, 983063, 4, 0, 917527, 4, 0, 851991, 4, 0, 786455, 4, 0, 720919, 131076, 0, 1048598, 131076, 1, 983062, 4, 0, 917526, 4, 0, 851990, 4, 0, 786454, 4, 0, 720918, 131076, 0, 1048597, 131076, 1, 983061, 4, 0, 917525, 4, 0, 851989, 4, 0, 786453, 4, 0, 720917, 131076, 0)
+
+[node name="HUD" parent="." index="6"]
+visible = false
+
+[node name="ParallaxBackground" parent="." index="7"]
+visible = false
+
+[node name="back" parent="ParallaxBackground" index="0"]
+texture_repeat = 3
+motion_scale = Vector2(0.9, 0.9)
+motion_mirroring = Vector2(2880, 0)
+
+[node name="image" parent="ParallaxBackground/back" index="0"]
+scale = Vector2(1, 1)
+texture = ExtResource("2_f5o7h")
+
+[node name="front" parent="ParallaxBackground" index="1"]
+texture_repeat = 3
+motion_scale = Vector2(1, 1)
+motion_mirroring = Vector2(2880, 0)
+
+[node name="image" parent="ParallaxBackground/front" index="0"]
+texture = ExtResource("3_fl2hs")
+
+[node name="tutorialScreens" parent="." index="9" instance=ExtResource("6_sodab")]
+
+[node name="playerStart" parent="." index="10"]
+position = Vector2(231.295, 703.145)
+
+[node name="obstacles" parent="." index="12"]
+layer_0/tile_data = PackedInt32Array(1179668, 0, 0, 1179669, 0, 0, 1179670, 0, 0, 1179671, 0, 0, 1179672, 0, 0, 1179673, 0, 0, 1179674, 0, 0, 1179675, 0, 0, 1179676, 0, 0, 1179677, 0, 0, 1179678, 0, 0, 1179679, 0, 0, 1179680, 0, 0, 1179681, 0, 0, 1179682, 0, 0, 1179683, 0, 0, 1179684, 0, 0, 1179685, 0, 0, 1179686, 0, 0, 1179687, 0, 0, 1179688, 0, 0, 1179689, 0, 0, 1179690, 0, 0, 1179691, 0, 0, 1179693, 0, 0, 1179692, 0, 0, 1179694, 0, 0, 1179695, 0, 0)
+
+[node name="orbe" parent="." index="13" instance=ExtResource("6_hvruj")]
+position = Vector2(1772, 502)
+
+[node name="nextLevelDoor" parent="." index="14" instance=ExtResource("5_vh5ck")]
+position = Vector2(2276, 692)
+scale = Vector2(1, 0.66)
+
+[node name="Sprite2D" parent="nextLevelDoor" index="0"]
+texture = null
+
+[node name="CollisionShape2D" parent="nextLevelDoor" index="1"]
+position = Vector2(-2, -197)
+
+[node name="music" type="AudioStreamPlayer" parent="." index="15"]
+stream = ExtResource("8_pofy4")
+volume_db = -5.0
+autoplay = true
+
+[node name="BasatiAnimation" parent="." index="16" instance=ExtResource("9_ws5st")]
+position = Vector2(903.41, 447)
+
+[node name="Label" parent="BasatiAnimation" index="3"]
+text = "¿Ves ese orbe? Es un portal de Zii. Apunta a ellos y lánzate usando el clic izquierdo. Cuanto más lejos te lances más lejos llegarás."
+
+[editable path="player"]
+[editable path="tutorialScreens"]
+[editable path="nextLevelDoor"]
+[editable path="BasatiAnimation"]

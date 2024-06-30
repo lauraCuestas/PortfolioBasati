@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsybe2au6o3pk"]
+
+[ext_resource type="Script" path="res://02_scenes/04_screens/tutorialScreens.gd" id="1_8t57b"]
+[ext_resource type="Shader" path="res://02_scenes/04_screens/pause_menu.gdshader" id="2_5l7tj"]
+[ext_resource type="Texture2D" uid="uid://mrgcglrqmrsl" path="res://01_assets/01_sprites/BST_uiux_tutorial00.png" id="2_fkfsa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x0hhn"]
+shader = ExtResource("2_5l7tj")
+shader_parameter/amount = 2.0
+
+[node name="tutorialScreens" type="CanvasLayer"]
+process_mode = 2
+script = ExtResource("1_8t57b")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_x0hhn")
+offset_left = -1206.0
+offset_top = -372.0
+offset_right = -1145.0
+offset_bottom = -342.0
+scale = Vector2(68.025, 68.025)
+
+[node name="image" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fkfsa")
+centered = false

@@ -1,7 +1,0 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dcpkhgdbsuhi7"]
-
-[ext_resource type="FontFile" uid="uid://c5bsyc0c2d1pu" path="res://01_assets/02_fonts/DUNGRG__.TTF" id="1_k3sgw"]
-
-[resource]
-default_font = ExtResource("1_k3sgw")
-default_font_size = 150
